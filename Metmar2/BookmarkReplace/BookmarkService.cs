@@ -7,7 +7,6 @@ using System.Linq;
 using System.Data;
 using System.ComponentModel;
 using Metmar2.Models;
-using System.Windows.Forms;
 using System.Diagnostics;
 
 namespace Metmar2.BookmarkReplace
@@ -37,13 +36,12 @@ namespace Metmar2.BookmarkReplace
                 var bookmark = res.SingleOrDefault();
                 if (bookmark != null)
                 {
-                    var parent = bookmark.Parent;   // bookmark's parent element
+                    var parent = bookmark.Parent; 
 
 
                     Run run = new Run(new RunProperties(new Bold()));
                     Paragraph newParagraph = new Paragraph(run);
 
-                    // insert after bookmark parent
                     parent.InsertBeforeSelf(newParagraph);
                     parent.Remove();
 
@@ -171,8 +169,6 @@ namespace Metmar2.BookmarkReplace
                         lp++;
 
                     }
-
-                    // insert after new paragraph
                     newParagraph.InsertBeforeSelf(table);
 
                     bmName = "Imie";
@@ -241,9 +237,6 @@ namespace Metmar2.BookmarkReplace
                     parent.InsertBeforeSelf(paragraph);
                     parent.Remove();
                 }
-
-
-                // close saves all parts and closes the document
                 document.Close();                
             }
             Process.Start(destinaton);

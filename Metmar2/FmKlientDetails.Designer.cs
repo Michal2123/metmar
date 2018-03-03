@@ -46,28 +46,28 @@
             // 
             this.tbImie.Location = new System.Drawing.Point(111, 34);
             this.tbImie.Name = "tbImie";
-            this.tbImie.Size = new System.Drawing.Size(100, 22);
+            this.tbImie.Size = new System.Drawing.Size(120, 22);
             this.tbImie.TabIndex = 0;
             // 
             // tbNazwisko
             // 
             this.tbNazwisko.Location = new System.Drawing.Point(111, 75);
             this.tbNazwisko.Name = "tbNazwisko";
-            this.tbNazwisko.Size = new System.Drawing.Size(100, 22);
+            this.tbNazwisko.Size = new System.Drawing.Size(120, 22);
             this.tbNazwisko.TabIndex = 1;
             // 
             // tbPesel
             // 
             this.tbPesel.Location = new System.Drawing.Point(111, 120);
             this.tbPesel.Name = "tbPesel";
-            this.tbPesel.Size = new System.Drawing.Size(100, 22);
+            this.tbPesel.Size = new System.Drawing.Size(120, 22);
             this.tbPesel.TabIndex = 2;
             // 
             // tbTelefon
             // 
             this.tbTelefon.Location = new System.Drawing.Point(111, 163);
             this.tbTelefon.Name = "tbTelefon";
-            this.tbTelefon.Size = new System.Drawing.Size(100, 22);
+            this.tbTelefon.Size = new System.Drawing.Size(120, 22);
             this.tbTelefon.TabIndex = 3;
             // 
             // label1
@@ -108,7 +108,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(193, 290);
+            this.btnSave.Location = new System.Drawing.Point(193, 342);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 8;
@@ -120,7 +120,7 @@
             // 
             this.rtbAdres.Location = new System.Drawing.Point(111, 216);
             this.rtbAdres.Name = "rtbAdres";
-            this.rtbAdres.Size = new System.Drawing.Size(157, 68);
+            this.rtbAdres.Size = new System.Drawing.Size(157, 80);
             this.rtbAdres.TabIndex = 9;
             this.rtbAdres.Text = "";
             // 
@@ -136,7 +136,7 @@
             // chbIsActive
             // 
             this.chbIsActive.AutoSize = true;
-            this.chbIsActive.Location = new System.Drawing.Point(37, 336);
+            this.chbIsActive.Location = new System.Drawing.Point(37, 312);
             this.chbIsActive.Name = "chbIsActive";
             this.chbIsActive.Size = new System.Drawing.Size(81, 21);
             this.chbIsActive.TabIndex = 11;

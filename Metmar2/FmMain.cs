@@ -3,7 +3,6 @@ using Metmar2.Connection;
 using Metmar2.Models;
 using System;
 using System.ComponentModel;
-using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -15,18 +14,18 @@ namespace Metmar2
         private BindingList<KlientModel> _klientList = new BindingList<KlientModel>();
         private ItemModel _itemModel = new ItemModel();
         private KlientModel _klientModel = new KlientModel();
-        private DAL _dataConnection = new DAL();
+        private DAL _dal = new DAL();
 
         private void fillComboKat()
         {
-            comboBoxKat.DataSource = _dataConnection.FillComboKat();
+            comboBoxKat.DataSource = _dal.FillComboKat();
             comboBoxKat.DisplayMember = "NazwaKategori";
             comboBoxKat.ValueMember = "Id";
         }
 
         private void fillComboNazwa(int idKat)
         {
-            comboboxItem.DataSource = _dataConnection.FillComboNazw(idKat);
+            comboboxItem.DataSource = _dal.FillComboNazw(idKat);
             comboboxItem.DisplayMember = "NazwaPrzedmiotu";
             comboboxItem.ValueMember = "Id";
         }
@@ -73,8 +72,8 @@ namespace Metmar2
             lbStawkaGdWidok.DataBindings.Add("Visible", _itemModel, "IsNotPrice");
             labelStawkaGdzinowa.DataBindings.Add("Visible", _itemModel, "IsNotPrice");
 
-            textBoxKaucja.DataBindings.Add("Text", _itemModel, "Kaucja", false, DataSourceUpdateMode.OnPropertyChanged);
-            comboboxItem.DataBindings.Add("SelectedItem", _itemModel, "NazwaPrzedmiotu", false, DataSourceUpdateMode.OnPropertyChanged);
+            textBoxKaucja.DataBindings.Add("Text", _itemModel, "Kaucja");
+            comboboxItem.DataBindings.Add("SelectedItem", _itemModel, "NazwaPrzedmiotu");
             labelStawkaGdzinowa.DataBindings.Add("Text", _itemModel, "StawkaGodzina");
             labelStawkaDzien.DataBindings.Add("Text", _itemModel, "StawkaDzien");
             lbCenaStawka.DataBindings.Add("Text", _itemModel, "Cena");
@@ -114,7 +113,7 @@ namespace Metmar2
             }
 
             SumaService sumaService = new SumaService();
-            decimal SumaPrzedmiotu = 0;          
+            decimal SumaPrzedmiotu = 0;
 
             if (_itemModel.IsPrice == true)
             {
@@ -158,7 +157,7 @@ namespace Metmar2
         {
             if (listBox1.SelectedIndex >= 0)
             {
-                var toRemove = listBox1.SelectedItem as ItemModel;                
+                var toRemove = listBox1.SelectedItem as ItemModel;
                 _list.Remove(toRemove);
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
                 txtBoxSuma.Text = Convert.ToString(_list.Sum(x => x.SumaZaPrzedmiot) + " PLN");
@@ -167,32 +166,26 @@ namespace Metmar2
 
         private void buttonGeneruj_Click(object sender, EventArgs e)
         {
-            if(_list.Count ==0 || _klientModel == null)
+            if (_list.Count == 0 || _klientModel == null)
             {
                 MessageBox.Show("Musisz najpierw wskazać klienta i dodać przedmioty do listy");
                 return;
             }
             BookmarkService bookmark = new BookmarkService();
-            var nrFaktury = _dataConnection.FakturaDodaj(_list, _klientModel.Id);                      
+            var nrFaktury = _dal.FakturaDodaj(_list, _klientModel.Id);
             bookmark.GenerateDoc(_klientModel, _list, nrFaktury);
-            
+
         }
 
         private void textBoxPesel_Leave(object sender, EventArgs e)
         {
-            _klientModel = _dataConnection.FillKlientByPesel(textBoxPesel.Text);
+            _klientModel = _dal.FillKlientByPesel(textBoxPesel.Text);
             if (_klientModel == null)
             {
                 MessageBox.Show("Nie znaleziono klienta o podanym peselu");
                 return;
             }
             refreshClientBindings();
-
-        }
-
-        private void oProgramieToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void edycjaToolStripMenuItem_Click(object sender, EventArgs e)

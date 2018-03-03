@@ -1,31 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Metmar2
+﻿namespace Metmar2
 {
     public enum TypStawki
     {
-        Dobowa =0,
+        Dobowa = 0,
         Godzinowa = 1,
         Cena = 2
     }
 
-    public class ItemModel : INotifyPropertyChanged
+    public class ItemModel 
     {
-        private int ilosc = 1;
-        private decimal _kaucja;
-        private string _nazwa;
-
         public int Id { get; set; }
         public string DisplayedNazwa { get; set; }
-        public int Ilosc { get { return ilosc; } set { ilosc = value; } }
+        public int Ilosc { get; set; } = 1;
         public decimal StawkaCzas { get; set; }
-        public int IloscCzas { get; set; }
+        public int IloscCzas { get; set; } = 1;
         public int IdKlienta { get; set; }
         public decimal StawkaDzien { get; set; }
         public decimal StawkaGodzina { get; set; }
@@ -34,33 +22,11 @@ namespace Metmar2
         public string NazwaPrzedmiotu { get; set; }
 
         public TypStawki TypStawki { get; set; }
+        public string NazwaKategori { get; set; }
 
-        public string NazwaKategori
-        {
-            get
-            {
-                return _nazwa;
-            }
-            set
-            {
-                _nazwa = value;
-                OnPropertyChanged("NazwaKategori");
-            }
-        }
 
-        public decimal Kaucja
-        {
-            get
-            {
-                return _kaucja;
-            }
-            set
-            {
-                _kaucja = value;
-                OnPropertyChanged("Kaucja");
-            }
-        } 
-        
+        public decimal Kaucja { get; set; }
+
         public string DisplayProperty
         {
             get
@@ -74,17 +40,6 @@ namespace Metmar2
         public bool IsNotPrice
         {
             get { return !IsPrice; }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
         }
     }
 

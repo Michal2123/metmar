@@ -1,0 +1,3 @@
+-Trzeba zrestorowaæ bazê lokalnie i zmieniæ connection stringa w klasie DAL (12 linijka)
+-Plik umowa_1 wrzuciæ do œcie¿ki C:\temp\
+-Enjoy
