@@ -107,9 +107,14 @@ namespace Metmar2
 
         private void buttonDodaj_Click(object sender, EventArgs e)
         {
+            if (_list.Contains(_itemModel))
+            {
+                MessageBox.Show("Przedmiot już istnieje");
+                return;
+            }
+
             SumaService sumaService = new SumaService();
-            decimal SumaPrzedmiotu = 0;
-            var selectedKat = comboBoxKat.SelectedItem as ItemModel;
+            decimal SumaPrzedmiotu = 0;          
 
             if (_itemModel.IsPrice == true)
             {

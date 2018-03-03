@@ -9,7 +9,7 @@ namespace Metmar2.Connection
 {
     public class DAL
     {
-        private static string _connString = "Data Source=Lenovo-PC\\SQLExpress;Initial Catalog=Cennik;Integrated Security=True";
+        private static string _connString = "Data Source=DESKTOP-C2CKSGK;Initial Catalog=Cennik;Integrated Security=True";
         
         public List<KlientModel> GetList()
         {
