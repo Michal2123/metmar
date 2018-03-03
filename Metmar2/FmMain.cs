@@ -117,6 +117,7 @@ namespace Metmar2
                 _itemModel.TypStawki = TypStawki.Cena;
 
                 //TODO IF namioty
+                Console.WriteLine("TEST");
             }
 
             else
