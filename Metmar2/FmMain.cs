@@ -99,6 +99,7 @@ namespace Metmar2
 
         private void comboboxItem_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //skjdfskj
             var combo = sender as ComboBox;
             _itemModel = combo.SelectedItem as ItemModel;
             _itemModel.DisplayedNazwa = _itemModel.NazwaPrzedmiotu;
