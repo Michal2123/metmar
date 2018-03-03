@@ -9,7 +9,44 @@ namespace Metmar2.Connection
 {
     public class DAL
     {
-        private static string _connString = "Data Source=DESKTOP-C2CKSGK;Initial Catalog=Cennik;Integrated Security=True";
+        private static string _connString = "Data Source=Lenovo-PC\\SQLExpress;Initial Catalog=Cennik;Integrated Security=True";
+        
+        public List<KlientModel> GetList()
+        {
+            string query = "Select Id, Imie, Nazwisko, Pesel, Telefon from Klienci";
+            List<KlientModel> list = new List<KlientModel>();
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query,connection))
+                {
+                    cmd.Connection.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            var klientModel = new KlientModel();
+                            klientModel.Id = Convert.ToInt32(dr["Id"]);
+                            klientModel.Nazwisko = Convert.ToString(dr["Nazwisko"]);
+                            klientModel.Imie = Convert.ToString(dr["Imie"]);
+                            klientModel.Pesel = Convert.ToString(dr["Pesel"]);
+                            klientModel.Telefon = Convert.ToString(dr["Telefon"]);
+                            list.Add(klientModel);
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+
+        internal void DaneKlientaDodaj(KlientModel klient)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void DaneKlientaUpdate(KlientModel klient)
+        {
+            throw new NotImplementedException();
+        }
 
         public List<ItemModel> FillComboKat()
         {

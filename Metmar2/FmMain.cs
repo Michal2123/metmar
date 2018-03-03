@@ -193,7 +193,8 @@ namespace Metmar2
 
         private void edycjaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FmKlient fmKlient = new FmKlient();
+            fmKlient.ShowDialog();
         }
     }
 }
