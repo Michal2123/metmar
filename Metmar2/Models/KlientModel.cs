@@ -15,6 +15,6 @@ namespace Metmar2.Models
         public string Nazwisko { get; set; }
         public string Pesel { get; set; }
         public string Telefon { get; set; }
-        public object Adres { get;  set; }
+        public string Adres { get;  set; }
     }
 }

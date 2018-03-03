@@ -60,6 +60,7 @@ namespace Metmar2.BookmarkReplace
                             new GridColumn() { Width = new StringValue("6000") },
                             new GridColumn() { Width = new StringValue("1000") },
                             new GridColumn() { Width = new StringValue("1000") },
+                            new GridColumn() { Width = new StringValue("1000") },
                     new TableRow(
                         new TableCell(
                             new TableCellProperties(
@@ -80,14 +81,21 @@ namespace Metmar2.BookmarkReplace
                                 new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
                             new Paragraph(
                                 new Run(
-                                    new Text("Ilość"))
+                                    new Text("Ilość sz."))
                             )),
                         new TableCell(
                             new TableCellProperties(
                                 new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
                             new Paragraph(
                                 new Run(
-                                    new Text("Kaucja")))))));
+                                    new Text("Kaucja zł")))),
+                        new TableCell(
+                            new TableCellProperties(
+                                new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
+                            new Paragraph(
+                                new Run(
+                                    new Text("Cena zł"))))
+                        )));
                     table.AppendChild(props);
 
                     foreach (ItemModel item in list)
@@ -113,7 +121,12 @@ namespace Metmar2.BookmarkReplace
                                 new TableCellProperties(
                                     new Paragraph(
                                         new Run(
-                                            new Text(item.Kaucja.ToString())))))
+                                            new Text(item.Kaucja.ToString()))))),
+                            new TableCell(
+                                new TableCellProperties(
+                                    new Paragraph(
+                                        new Run(
+                                            new Text(item.SumaZaPrzedmiot.ToString())))))
 
                                     ));
 
@@ -175,7 +188,7 @@ namespace Metmar2.BookmarkReplace
                     paragraph =
                         new Paragraph(
                             new Run(
-                                new Text($"Do Zapłaty: {sumDoZaplaty.ToString()}")));
+                                new Text($"Do Zapłaty: {sumDoZaplaty.ToString()} zł")));
                     parent.InsertBeforeSelf(paragraph);
                     parent.Remove();
 
@@ -186,7 +199,7 @@ namespace Metmar2.BookmarkReplace
                     paragraph =
                         new Paragraph(
                             new Run(
-                                new Text($"Kaucja: {sumKaucja.ToString()}")));
+                                new Text($"Kaucja: {sumKaucja.ToString()} zł")));
                     parent.InsertBeforeSelf(paragraph);
                     parent.Remove();
                 }

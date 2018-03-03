@@ -14,12 +14,11 @@ namespace Metmar2
 {
     public partial class FmKlient : Form
     {
+        private DAL _dal = new DAL();
         public FmKlient()
-        {
-            
+        {         
             InitializeComponent();
-            DAL dAL = new DAL();
-            dgvKlienci.DataSource = dAL.GetList();
+            dgvKlienci.DataSource = _dal.GetList();
         }
 
         private void dgvKlienci_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

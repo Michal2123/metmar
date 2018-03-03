@@ -31,8 +31,18 @@ namespace Metmar2
 
         private void Init()
         {
-            textBox1.DataBindings.Clear();
-            textBox1.DataBindings.Add("Text", _klient, "Imie");
+            tbImie.DataBindings.Clear();
+            tbNazwisko.DataBindings.Clear();
+            tbPesel.DataBindings.Clear();
+            tbTelefon.DataBindings.Clear();
+            rtbAdres.DataBindings.Clear();
+
+            tbImie.DataBindings.Add("Text", _klient, "Imie");
+            tbNazwisko.DataBindings.Add("Text", _klient, "Nazwisko");
+            tbPesel.DataBindings.Add("Text", _klient, "Pesel");
+            tbTelefon.DataBindings.Add("Text", _klient, "Pesel");
+            rtbAdres.DataBindings.Add("Text", _klient, "Adres");
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)

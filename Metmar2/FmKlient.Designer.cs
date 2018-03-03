@@ -48,7 +48,7 @@
             this.dgvKlienci.Name = "dgvKlienci";
             this.dgvKlienci.ReadOnly = true;
             this.dgvKlienci.RowTemplate.Height = 24;
-            this.dgvKlienci.Size = new System.Drawing.Size(1093, 391);
+            this.dgvKlienci.Size = new System.Drawing.Size(830, 256);
             this.dgvKlienci.TabIndex = 0;
             this.dgvKlienci.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvKlienci_RowHeaderMouseDoubleClick);
             // 
@@ -59,7 +59,7 @@
             this.menuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1093, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(830, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -75,21 +75,21 @@
             // dodajKlientaToolStripMenuItem
             // 
             this.dodajKlientaToolStripMenuItem.Name = "dodajKlientaToolStripMenuItem";
-            this.dodajKlientaToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.dodajKlientaToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.dodajKlientaToolStripMenuItem.Text = "Dodaj klienta";
             this.dodajKlientaToolStripMenuItem.Click += new System.EventHandler(this.dodajKlientaToolStripMenuItem_Click);
             // 
             // wyjścieToolStripMenuItem
             // 
             this.wyjścieToolStripMenuItem.Name = "wyjścieToolStripMenuItem";
-            this.wyjścieToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.wyjścieToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.wyjścieToolStripMenuItem.Text = "Wyjście";
             // 
             // FmKlient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1093, 419);
+            this.ClientSize = new System.Drawing.Size(830, 284);
             this.Controls.Add(this.dgvKlienci);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;

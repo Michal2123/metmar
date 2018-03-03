@@ -13,7 +13,7 @@ namespace Metmar2.Connection
         
         public List<KlientModel> GetList()
         {
-            string query = "Select Id, Imie, Nazwisko, Pesel, Telefon from Klienci";
+            string query = "Select Id, Imie, Nazwisko, Pesel, Telefon, Adres from Klienci";
             List<KlientModel> list = new List<KlientModel>();
             using (SqlConnection connection = new SqlConnection(_connString))
             {
@@ -30,6 +30,7 @@ namespace Metmar2.Connection
                             klientModel.Imie = Convert.ToString(dr["Imie"]);
                             klientModel.Pesel = Convert.ToString(dr["Pesel"]);
                             klientModel.Telefon = Convert.ToString(dr["Telefon"]);
+                            klientModel.Adres = Convert.ToString(dr["Adres"]);
                             list.Add(klientModel);
                         }
                     }
@@ -39,13 +40,35 @@ namespace Metmar2.Connection
         }
 
         internal void DaneKlientaDodaj(KlientModel klient)
-        {
-            throw new NotImplementedException();
+        {           
+            string query = $"INSERT INTO Klienci(Imie,Nazwisko,Pesel,Telefon,Adres) VALUES ('{klient.Imie}','{klient.Nazwisko}','{klient.Pesel}',{klient.Telefon}, {klient.Adres});";
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
         }
 
         internal void DaneKlientaUpdate(KlientModel klient)
         {
-            throw new NotImplementedException();
+            string query = $"update Klienci set Imie = '{klient.Imie}', Nazwisko = '{klient.Nazwisko}', Telefon = {klient.Telefon}, Adres = '{klient.Adres}' where Pesel = '{klient.Pesel}'";
+            using (SqlConnection connection = new SqlConnection(_connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
         }
 
         public List<ItemModel> FillComboKat()
@@ -103,7 +126,7 @@ namespace Metmar2.Connection
         public KlientModel FillKlientByPesel(string pesel)
         {
             KlientModel klient = null;
-            string query = $"select Id, Imie, Nazwisko,Pesel, Telefon from Klienci where Pesel = '{pesel}';";
+            string query = $"select Id, Imie, Nazwisko,Pesel, Telefon, Adres from Klienci where Pesel = '{pesel}';";
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
@@ -119,6 +142,7 @@ namespace Metmar2.Connection
                             klient.Nazwisko = Convert.ToString(dr["Nazwisko"]);
                             klient.Pesel = Convert.ToString(dr["Pesel"]);
                             klient.Telefon = Convert.ToString(dr["Telefon"]);
+                            klient.Adres = Convert.ToString(dr["Adres"]);
 
                         }
                     }
