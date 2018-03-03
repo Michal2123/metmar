@@ -36,12 +36,14 @@ namespace Metmar2
             tbPesel.DataBindings.Clear();
             tbTelefon.DataBindings.Clear();
             rtbAdres.DataBindings.Clear();
+            chbIsActive.DataBindings.Clear();
 
             tbImie.DataBindings.Add("Text", _klient, "Imie");
             tbNazwisko.DataBindings.Add("Text", _klient, "Nazwisko");
             tbPesel.DataBindings.Add("Text", _klient, "Pesel");
             tbTelefon.DataBindings.Add("Text", _klient, "Pesel");
             rtbAdres.DataBindings.Add("Text", _klient, "Adres");
+            chbIsActive.DataBindings.Add("Checked", _klient, "IsActive");
 
         }
 
@@ -51,6 +53,7 @@ namespace Metmar2
                 _dal.DaneKlientaDodaj(_klient);
             else
                 _dal.DaneKlientaUpdate(_klient);
+            this.Close();
         }
     }
 }

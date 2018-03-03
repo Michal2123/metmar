@@ -16,5 +16,6 @@ namespace Metmar2.Models
         public string Pesel { get; set; }
         public string Telefon { get; set; }
         public string Adres { get;  set; }
+        public bool IsActive { get; set; }
     }
 }

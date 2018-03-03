@@ -33,6 +33,10 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dodajKlientaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wyjścieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Imie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nazwisko = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pesel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Telefon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKlienci)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -42,13 +46,18 @@
             this.dgvKlienci.AllowUserToAddRows = false;
             this.dgvKlienci.AllowUserToDeleteRows = false;
             this.dgvKlienci.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvKlienci.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Imie,
+            this.Nazwisko,
+            this.Pesel,
+            this.Telefon});
             this.dgvKlienci.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvKlienci.Location = new System.Drawing.Point(0, 28);
             this.dgvKlienci.MultiSelect = false;
             this.dgvKlienci.Name = "dgvKlienci";
             this.dgvKlienci.ReadOnly = true;
             this.dgvKlienci.RowTemplate.Height = 24;
-            this.dgvKlienci.Size = new System.Drawing.Size(830, 256);
+            this.dgvKlienci.Size = new System.Drawing.Size(648, 306);
             this.dgvKlienci.TabIndex = 0;
             this.dgvKlienci.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvKlienci_RowHeaderMouseDoubleClick);
             // 
@@ -59,7 +68,7 @@
             this.menuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(830, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(648, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -75,21 +84,50 @@
             // dodajKlientaToolStripMenuItem
             // 
             this.dodajKlientaToolStripMenuItem.Name = "dodajKlientaToolStripMenuItem";
-            this.dodajKlientaToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
+            this.dodajKlientaToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.dodajKlientaToolStripMenuItem.Text = "Dodaj klienta";
             this.dodajKlientaToolStripMenuItem.Click += new System.EventHandler(this.dodajKlientaToolStripMenuItem_Click);
             // 
             // wyjścieToolStripMenuItem
             // 
             this.wyjścieToolStripMenuItem.Name = "wyjścieToolStripMenuItem";
-            this.wyjścieToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
+            this.wyjścieToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.wyjścieToolStripMenuItem.Text = "Wyjście";
+            this.wyjścieToolStripMenuItem.Click += new System.EventHandler(this.wyjścieToolStripMenuItem_Click);
+            // 
+            // Imie
+            // 
+            this.Imie.DataPropertyName = "Imie";
+            this.Imie.HeaderText = "Imię";
+            this.Imie.Name = "Imie";
+            this.Imie.ReadOnly = true;
+            // 
+            // Nazwisko
+            // 
+            this.Nazwisko.DataPropertyName = "Nazwisko";
+            this.Nazwisko.HeaderText = "Nazwisko";
+            this.Nazwisko.Name = "Nazwisko";
+            this.Nazwisko.ReadOnly = true;
+            // 
+            // Pesel
+            // 
+            this.Pesel.DataPropertyName = "Pesel";
+            this.Pesel.HeaderText = "Pesel";
+            this.Pesel.Name = "Pesel";
+            this.Pesel.ReadOnly = true;
+            // 
+            // Telefon
+            // 
+            this.Telefon.DataPropertyName = "Telefon";
+            this.Telefon.HeaderText = "Telefon";
+            this.Telefon.Name = "Telefon";
+            this.Telefon.ReadOnly = true;
             // 
             // FmKlient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(830, 284);
+            this.ClientSize = new System.Drawing.Size(648, 334);
             this.Controls.Add(this.dgvKlienci);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -112,5 +150,9 @@
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dodajKlientaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wyjścieToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Imie;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nazwisko;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Pesel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Telefon;
     }
 }

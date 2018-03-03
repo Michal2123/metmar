@@ -9,11 +9,11 @@ namespace Metmar2.Connection
 {
     public class DAL
     {
-        private static string _connString = "Data Source=DESKTOP-C2CKSGK;Initial Catalog=Cennik;Integrated Security=True";
+        private static string _connString = "Data Source=Lenovo-PC\\SQLExpress;Initial Catalog=Cennik;Integrated Security=True";
         
         public List<KlientModel> GetList()
         {
-            string query = "Select Id, Imie, Nazwisko, Pesel, Telefon, Adres from Klienci";
+            string query = "Select Id, Imie, Nazwisko, Pesel, Telefon, Adres , IsActive from Klienci where IsActive = 1";
             List<KlientModel> list = new List<KlientModel>();
             using (SqlConnection connection = new SqlConnection(_connString))
             {
@@ -31,6 +31,7 @@ namespace Metmar2.Connection
                             klientModel.Pesel = Convert.ToString(dr["Pesel"]);
                             klientModel.Telefon = Convert.ToString(dr["Telefon"]);
                             klientModel.Adres = Convert.ToString(dr["Adres"]);
+                            klientModel.IsActive = Convert.ToBoolean(dr["IsActive"]);
                             list.Add(klientModel);
                         }
                     }
@@ -57,7 +58,7 @@ namespace Metmar2.Connection
 
         internal void DaneKlientaUpdate(KlientModel klient)
         {
-            string query = $"update Klienci set Imie = '{klient.Imie}', Nazwisko = '{klient.Nazwisko}', Telefon = {klient.Telefon}, Adres = '{klient.Adres}' where Pesel = '{klient.Pesel}'";
+            string query = $"update Klienci set Imie = '{klient.Imie}', Nazwisko = '{klient.Nazwisko}', Telefon = {klient.Telefon}, Adres = '{klient.Adres}', IsActive = {Convert.ToInt32(klient.IsActive)} where Pesel = '{klient.Pesel}'";
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))

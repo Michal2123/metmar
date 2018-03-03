@@ -39,6 +39,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.rtbAdres = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.chbIsActive = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // tbImie
@@ -132,11 +133,22 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Adres:";
             // 
+            // chbIsActive
+            // 
+            this.chbIsActive.AutoSize = true;
+            this.chbIsActive.Location = new System.Drawing.Point(37, 336);
+            this.chbIsActive.Name = "chbIsActive";
+            this.chbIsActive.Size = new System.Drawing.Size(81, 21);
+            this.chbIsActive.TabIndex = 11;
+            this.chbIsActive.Text = "Aktywny";
+            this.chbIsActive.UseVisualStyleBackColor = true;
+            // 
             // FmKlientDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(280, 323);
+            this.ClientSize = new System.Drawing.Size(280, 377);
+            this.Controls.Add(this.chbIsActive);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.rtbAdres);
             this.Controls.Add(this.btnSave);
@@ -170,5 +182,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.RichTextBox rtbAdres;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox chbIsActive;
     }
 }

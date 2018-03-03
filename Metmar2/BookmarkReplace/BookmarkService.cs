@@ -56,11 +56,14 @@ namespace Metmar2.BookmarkReplace
                             new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Size = 6 }
                         ),
                         new TableGrid(
-                            new GridColumn() { Width = new StringValue("600") },
-                            new GridColumn() { Width = new StringValue("6000") },
+                            new GridColumn() { Width = new StringValue("500") },
+                            new GridColumn() { Width = new StringValue("4500") },
+                            new GridColumn() { Width = new StringValue("800") },
                             new GridColumn() { Width = new StringValue("1000") },
-                            new GridColumn() { Width = new StringValue("1000") },
-                            new GridColumn() { Width = new StringValue("1000") },
+                            new GridColumn() { Width = new StringValue("700") },
+                            new GridColumn() { Width = new StringValue("900") },
+                            new GridColumn() { Width = new StringValue("900") },
+
                     new TableRow(
                         new TableCell(
                             new TableCellProperties(
@@ -81,25 +84,50 @@ namespace Metmar2.BookmarkReplace
                                 new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
                             new Paragraph(
                                 new Run(
-                                    new Text("Ilość sz."))
+                                    new Text("Ilość"))
                             )),
+                         new TableCell(
+                            new TableCellProperties(
+                                new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
+                            new Paragraph(
+                                new Run(
+                                    new Text("Tryb najmu")))),
+                          new TableCell(
+                            new TableCellProperties(
+                                new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
+                            new Paragraph(
+                                new Run(
+                                    new Text("Czas")))),
                         new TableCell(
                             new TableCellProperties(
                                 new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
                             new Paragraph(
                                 new Run(
-                                    new Text("Kaucja zł")))),
+                                    new Text("Kaucja")))),
                         new TableCell(
                             new TableCellProperties(
                                 new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
                             new Paragraph(
                                 new Run(
-                                    new Text("Cena zł"))))
+                                    new Text("Cena"))))
                         )));
                     table.AppendChild(props);
 
                     foreach (ItemModel item in list)
                     {
+                        string typStawkiSlownie = string.Empty;
+                        if (item.TypStawki == TypStawki.Dobowa)
+                        {
+                            typStawkiSlownie = "Doba";
+                        }
+                        else if (item.TypStawki == TypStawki.Godzinowa)
+                        {
+                            typStawkiSlownie = "Godzinowa";
+                        }
+                        else
+                        {
+                            typStawkiSlownie = "Cena";
+                        }
 
                         table.Append(new TableRow(
                             new TableCell(
@@ -117,6 +145,16 @@ namespace Metmar2.BookmarkReplace
                                     new Paragraph(
                                         new Run(
                                             new Text(item.Ilosc.ToString()))))),
+                            new TableCell(
+                                new TableCellProperties(
+                                    new Paragraph(
+                                        new Run(
+                                            new Text(typStawkiSlownie))))),
+                            new TableCell(
+                                new TableCellProperties(
+                                    new Paragraph(
+                                        new Run(
+                                            new Text(item.IloscCzas.ToString()))))),
                             new TableCell(
                                 new TableCellProperties(
                                     new Paragraph(

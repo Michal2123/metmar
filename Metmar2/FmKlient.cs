@@ -16,8 +16,9 @@ namespace Metmar2
     {
         private DAL _dal = new DAL();
         public FmKlient()
-        {         
+        {
             InitializeComponent();
+            dgvKlienci.AutoGenerateColumns = false;
             dgvKlienci.DataSource = _dal.GetList();
         }
 
@@ -26,13 +27,18 @@ namespace Metmar2
             var selected = ((DataGridView)sender).SelectedRows[0].DataBoundItem as KlientModel;
             FmKlientDetails fmKlientDetails = new FmKlientDetails(selected);
             fmKlientDetails.ShowDialog();
-
+            dgvKlienci.DataSource = _dal.GetList();
         }
 
         private void dodajKlientaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FmKlientDetails fmKlientDetails = new FmKlientDetails();
             fmKlientDetails.ShowDialog();
+        }
+
+        private void wyjścieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
