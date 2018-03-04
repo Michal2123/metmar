@@ -41,8 +41,9 @@ namespace Metmar2.Connection
         }
 
         internal void DaneKlientaDodaj(KlientModel klient)
-        {           
-            string query = $"INSERT INTO Klienci(Imie,Nazwisko,Pesel,Telefon,Adres) VALUES ('{klient.Imie}','{klient.Nazwisko}','{klient.Pesel}',{klient.Telefon}, {klient.Adres});";
+        {
+
+            string query = $"INSERT INTO Klienci(Imie,Nazwisko,Pesel,Telefon,Adres, IsActive) VALUES ('{klient.Imie}','{klient.Nazwisko}','{klient.Pesel}','{klient.Telefon}', '{klient.Adres}', {Convert.ToInt32(klient.IsActive)});";
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
@@ -58,7 +59,7 @@ namespace Metmar2.Connection
 
         internal void DaneKlientaUpdate(KlientModel klient)
         {
-            string query = $"update Klienci set Imie = '{klient.Imie}', Nazwisko = '{klient.Nazwisko}', Telefon = {klient.Telefon}, Adres = '{klient.Adres}', IsActive = {Convert.ToInt32(klient.IsActive)} where Pesel = '{klient.Pesel}'";
+            string query = $"update Klienci set Imie = '{klient.Imie}', Nazwisko = '{klient.Nazwisko}', Telefon = '{klient.Telefon}', Adres = '{klient.Adres}', IsActive = {Convert.ToInt32(klient.IsActive)} where Pesel = '{klient.Pesel}'";
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))

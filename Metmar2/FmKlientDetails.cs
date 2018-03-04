@@ -34,7 +34,7 @@ namespace Metmar2
             tbImie.DataBindings.Add("Text", _klient, "Imie");
             tbNazwisko.DataBindings.Add("Text", _klient, "Nazwisko");
             tbPesel.DataBindings.Add("Text", _klient, "Pesel");
-            tbTelefon.DataBindings.Add("Text", _klient, "Pesel");
+            tbTelefon.DataBindings.Add("Text", _klient, "Telefon");
             rtbAdres.DataBindings.Add("Text", _klient, "Adres");
             chbIsActive.DataBindings.Add("Checked", _klient, "IsActive");
 
