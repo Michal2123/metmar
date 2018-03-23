@@ -11,10 +11,10 @@ namespace Metmar2
     public partial class FmMain : Form
     {
         private BindingList<ItemModel> _list = new BindingList<ItemModel>();
-        private BindingList<KlientModel> _klientList = new BindingList<KlientModel>();
         private ItemModel _itemModel = new ItemModel();
         private KlientModel _klientModel = new KlientModel();
         private DAL _dal = new DAL();
+        private Klienci _klienci = new Klienci();
 
         private void fillComboKat()
         {
@@ -37,10 +37,10 @@ namespace Metmar2
             textBoxPesel.DataBindings.Clear();
             lbTelefon.DataBindings.Clear();
 
-            lbImie.DataBindings.Add("Text", _klientModel, "Imie");
-            lbNazwisko.DataBindings.Add("Text", _klientModel, "Nazwisko");
-            textBoxPesel.DataBindings.Add("Text", _klientModel, "Pesel");
-            lbTelefon.DataBindings.Add("Text", _klientModel, "Telefon");
+            lbImie.DataBindings.Add("Text", _klienci, "Imie");
+            lbNazwisko.DataBindings.Add("Text", _klienci, "Nazwisko");
+            textBoxPesel.DataBindings.Add("Text", _klienci, "Pesel");
+            lbTelefon.DataBindings.Add("Text", _klienci, "Telefon");
         }
 
         public void refreshBindings()
@@ -106,6 +106,8 @@ namespace Metmar2
 
         private void buttonDodaj_Click(object sender, EventArgs e)
         {
+            var selectedObject = comboBoxKat.SelectedItem as ItemModel;
+
             if (_list.Contains(_itemModel))
             {
                 MessageBox.Show("Przedmiot już istnieje");
@@ -117,33 +119,48 @@ namespace Metmar2
 
             if (_itemModel.IsPrice == true)
             {
-                SumaPrzedmiotu = sumaService.Sumuj(Convert.ToDecimal(lbCenaStawka.Text), Convert.ToDecimal(textBoxIlosc.Text), Convert.ToDecimal(tbiloscCzas.Text));
-                _itemModel.TypStawki = TypStawki.Cena;
-
-                //TODO IF namioty
-                Console.WriteLine("TEST");
-            }
-
-            else
-            {
-                if (radioButtonStawkaDobowa.Checked == true)
+                if (selectedObject.Id == 21)
                 {
-                    SumaPrzedmiotu = sumaService.Sumuj(Convert.ToDecimal(labelStawkaDzien.Text), Convert.ToDecimal(textBoxIlosc.Text), Convert.ToDecimal(tbiloscCzas.Text));
-                    _itemModel.TypStawki = TypStawki.Dobowa;
+                    lbCenaStawka.Text = new Promocje.Promocje().promNamioty(lbCenaStawka, tbiloscCzas, _itemModel);
+                    SumaPrzedmiotu = sumaService.Sumuj(Convert.ToDecimal(lbCenaStawka.Text), Convert.ToDecimal(textBoxIlosc.Text), Convert.ToDecimal(tbiloscCzas.Text));
+                    _itemModel.TypStawki = TypStawki.Cena;
+                    _itemModel.StawkaUmowa = lbCenaStawka.Text;
                 }
-                else if (radioButtonStawkaGodzinowa.Checked == true)
+                else if (selectedObject.Id == 18)
                 {
-                    SumaPrzedmiotu = sumaService.Sumuj(Convert.ToDecimal(labelStawkaGdzinowa.Text), Convert.ToDecimal(textBoxIlosc.Text), Convert.ToDecimal(tbiloscCzas.Text));
-                    _itemModel.TypStawki = TypStawki.Godzinowa;
+                    lbCenaStawka.Text = new Promocje.Promocje().promNarty(lbCenaStawka, tbiloscCzas, _itemModel);
+                    SumaPrzedmiotu = sumaService.Sumuj(Convert.ToDecimal(lbCenaStawka.Text), Convert.ToDecimal(textBoxIlosc.Text), Convert.ToDecimal(tbiloscCzas.Text));
+                    SumaPrzedmiotu = new Promocje.Promocje().promWyjPrzyj(tbiloscCzas, SumaPrzedmiotu, lbCenaStawka);
+                    _itemModel.TypStawki = TypStawki.Cena;
+                    _itemModel.StawkaUmowa = lbCenaStawka.Text;
                 }
                 else
                 {
                     SumaPrzedmiotu = sumaService.Sumuj(Convert.ToDecimal(lbCenaStawka.Text), Convert.ToDecimal(textBoxIlosc.Text), Convert.ToDecimal(tbiloscCzas.Text));
                     _itemModel.TypStawki = TypStawki.Cena;
+                    _itemModel.StawkaUmowa = lbCenaStawka.Text;
+                }
+                
+            }
+            else
+            {
+                if (radioButtonStawkaDobowa.Checked == true)
+                {
+                    SumaPrzedmiotu = sumaService.Sumuj(Convert.ToDecimal(labelStawkaDzien.Text), Convert.ToDecimal(textBoxIlosc.Text), Convert.ToDecimal(tbiloscCzas.Text));
+                    SumaPrzedmiotu = new Promocje.Promocje().promWeekend(labelStawkaDzien, SumaPrzedmiotu, tbiloscCzas);
+                    _itemModel.TypStawki = TypStawki.Dobowa;
+                    _itemModel.StawkaUmowa = labelStawkaDzien.Text;
+                }
+                else if (radioButtonStawkaGodzinowa.Checked == true)
+                {
+                    SumaPrzedmiotu = sumaService.Sumuj(Convert.ToDecimal(labelStawkaGdzinowa.Text), Convert.ToDecimal(textBoxIlosc.Text), Convert.ToDecimal(tbiloscCzas.Text));
+                    _itemModel.TypStawki = TypStawki.Godzinowa;
+                    _itemModel.StawkaUmowa = labelStawkaGdzinowa.Text;
                 }
 
-            }
 
+            }
+         
             _itemModel.SumaZaPrzedmiot = SumaPrzedmiotu;
 
             listBox1.Items.Add(_itemModel);
@@ -162,6 +179,9 @@ namespace Metmar2
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
                 txtBoxSuma.Text = Convert.ToString(_list.Sum(x => x.SumaZaPrzedmiot) + " PLN");
             }
+            var selectedObject = comboBoxKat.SelectedItem as ItemModel;
+            fillComboNazwa(selectedObject.Id);
+            refreshBindings();
         }
 
         private void buttonGeneruj_Click(object sender, EventArgs e)
@@ -173,14 +193,14 @@ namespace Metmar2
             }
             BookmarkService bookmark = new BookmarkService();
             var nrFaktury = _dal.FakturaDodaj(_list, _klientModel.Id);
-            bookmark.GenerateDoc(_klientModel, _list, nrFaktury);
+            bookmark.GenerateDoc(_klientModel, _list);
 
         }
 
         private void textBoxPesel_Leave(object sender, EventArgs e)
         {
-            _klientModel = _dal.FillKlientByPesel(textBoxPesel.Text);
-            if (_klientModel == null)
+            _klienci = _dal.FillKlientByPesel(textBoxPesel.Text);
+            if (_klienci == null)
             {
                 MessageBox.Show("Nie znaleziono klienta o podanym peselu");
                 return;

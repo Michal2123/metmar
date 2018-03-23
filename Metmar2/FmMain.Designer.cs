@@ -195,7 +195,7 @@
             // edycjaToolStripMenuItem
             // 
             this.edycjaToolStripMenuItem.Name = "edycjaToolStripMenuItem";
-            this.edycjaToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.edycjaToolStripMenuItem.Size = new System.Drawing.Size(127, 26);
             this.edycjaToolStripMenuItem.Text = "Edycja";
             this.edycjaToolStripMenuItem.Click += new System.EventHandler(this.edycjaToolStripMenuItem_Click);
             // 
@@ -298,7 +298,7 @@
             // lbCenaWidok
             // 
             this.lbCenaWidok.AutoSize = true;
-            this.lbCenaWidok.Location = new System.Drawing.Point(10, 146);
+            this.lbCenaWidok.Location = new System.Drawing.Point(6, 114);
             this.lbCenaWidok.Name = "lbCenaWidok";
             this.lbCenaWidok.Size = new System.Drawing.Size(47, 18);
             this.lbCenaWidok.TabIndex = 105;

@@ -20,6 +20,8 @@
         public decimal Cena { get; set; }
         public decimal SumaZaPrzedmiot { get; set; }
         public string NazwaPrzedmiotu { get; set; }
+        public int Wartosc { get; set; }
+        public string StawkaUmowa { get; set; }
 
         public TypStawki TypStawki { get; set; }
         public string NazwaKategori { get; set; }
@@ -41,6 +43,8 @@
         {
             get { return !IsPrice; }
         }
+
+        public int IsSki { get; set; }
     }
 
 }

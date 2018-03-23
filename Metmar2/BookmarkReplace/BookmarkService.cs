@@ -15,7 +15,7 @@ namespace Metmar2.BookmarkReplace
     public class BookmarkService
     {
 
-        public void GenerateDoc(KlientModel klient, BindingList<ItemModel> list, int nrfaktury)
+        public void GenerateDoc(KlientModel klient, BindingList<ItemModel> list)
         {
             int lp = 1;
             string bmName;
@@ -55,12 +55,11 @@ namespace Metmar2.BookmarkReplace
                         ),
                         new TableGrid(
                             new GridColumn() { Width = new StringValue("500") },
-                            new GridColumn() { Width = new StringValue("4500") },
-                            new GridColumn() { Width = new StringValue("800") },
-                            new GridColumn() { Width = new StringValue("1000") },
+                            new GridColumn() { Width = new StringValue("5200") },
                             new GridColumn() { Width = new StringValue("700") },
+                            new GridColumn() { Width = new StringValue("1000") },
                             new GridColumn() { Width = new StringValue("900") },
-                            new GridColumn() { Width = new StringValue("900") },
+                            new GridColumn() { Width = new StringValue("950") },
 
                     new TableRow(
                         new TableCell(
@@ -84,30 +83,24 @@ namespace Metmar2.BookmarkReplace
                                 new Run(
                                     new Text("Ilość"))
                             )),
-                         new TableCell(
-                            new TableCellProperties(
-                                new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
-                            new Paragraph(
-                                new Run(
-                                    new Text("Tryb najmu")))),
                           new TableCell(
                             new TableCellProperties(
                                 new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
                             new Paragraph(
                                 new Run(
-                                    new Text("Czas")))),
+                                    new Text("Wartość")))),
                         new TableCell(
                             new TableCellProperties(
                                 new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
                             new Paragraph(
                                 new Run(
-                                    new Text("Kaucja")))),
+                                    new Text("Stawka")))),
                         new TableCell(
                             new TableCellProperties(
                                 new TableCellWidth() { Width = new StringValue("0"), Type = TableWidthUnitValues.Auto }),
                             new Paragraph(
                                 new Run(
-                                    new Text("Cena"))))
+                                    new Text("Oplata"))))
                         )));
                     table.AppendChild(props);
 
@@ -147,17 +140,12 @@ namespace Metmar2.BookmarkReplace
                                 new TableCellProperties(
                                     new Paragraph(
                                         new Run(
-                                            new Text(typStawkiSlownie))))),
+                                            new Text(item.Wartosc.ToString()))))),
                             new TableCell(
                                 new TableCellProperties(
                                     new Paragraph(
                                         new Run(
-                                            new Text(item.IloscCzas.ToString()))))),
-                            new TableCell(
-                                new TableCellProperties(
-                                    new Paragraph(
-                                        new Run(
-                                            new Text(item.Kaucja.ToString()))))),
+                                            new Text(item.StawkaUmowa))))),
                             new TableCell(
                                 new TableCellProperties(
                                     new Paragraph(
@@ -186,12 +174,12 @@ namespace Metmar2.BookmarkReplace
                     parent.InsertBeforeSelf(paragraph);
                     parent.Remove();
 
-                    bmName = "NrFaktura";
+                    bmName = "GodzinaOkresNajmu";
                     bookmark = res.Single();
                     parent = bookmark.Parent;
                     paragraph =
                         new Paragraph(
-                            new Run(new Text($"Nr faktury: {nrfaktury.ToString()}")));
+                            new Run(new Text($"{DateTime.Now.ToString("HH:mm")}")));
                     parent.InsertBeforeSelf(paragraph);
                     parent.Remove();
 
@@ -201,7 +189,7 @@ namespace Metmar2.BookmarkReplace
                     paragraph =
                         new Paragraph(
                             new Run(
-                                new Text($"Data: {DateTime.Now.ToString()}")));
+                                new Text($"Data: {DateTime.Now.ToString("yyyy-MM-dd")}")));
                     parent.InsertBeforeSelf(paragraph);
                     parent.Remove();
 
@@ -211,7 +199,7 @@ namespace Metmar2.BookmarkReplace
                     paragraph =
                         new Paragraph(
                             new Run(
-                                new Text($"Data: {DateTime.Now.ToString()}")));
+                                new Text($"Data: {DateTime.Now.ToString("yyyy-MM-dd")}")));
                     parent.InsertBeforeSelf(paragraph);
                     parent.Remove();
 

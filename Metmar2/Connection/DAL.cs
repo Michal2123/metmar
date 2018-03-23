@@ -11,72 +11,58 @@ namespace Metmar2.Connection
     {
         private static string _connString = "Data Source=Lenovo-PC\\SQLExpress;Initial Catalog=Cennik;Integrated Security=True";
         
-        public List<KlientModel> GetList()
+        public List<Klienci> GetList()
         {
-            string query = "Select Id, Imie, Nazwisko, Pesel, Telefon, Adres , IsActive from Klienci where IsActive = 1";
-            List<KlientModel> list = new List<KlientModel>();
-            using (SqlConnection connection = new SqlConnection(_connString))
+            using (EntityModel context = new EntityModel())
             {
-                using (SqlCommand cmd = new SqlCommand(query,connection))
-                {
-                    cmd.Connection.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            var klientModel = new KlientModel();
-                            klientModel.Id = Convert.ToInt32(dr["Id"]);
-                            klientModel.Nazwisko = Convert.ToString(dr["Nazwisko"]);
-                            klientModel.Imie = Convert.ToString(dr["Imie"]);
-                            klientModel.Pesel = Convert.ToString(dr["Pesel"]);
-                            klientModel.Telefon = Convert.ToString(dr["Telefon"]);
-                            klientModel.Adres = Convert.ToString(dr["Adres"]);
-                            klientModel.IsActive = Convert.ToBoolean(dr["IsActive"]);
-                            list.Add(klientModel);
-                        }
-                    }
-                }
-            }
-            return list;
-        }
+                var model = (from klientci in context.Klienci
+                             where klientci.IsActive == true
+                             orderby klientci.Id
+                             select klientci).ToList();
 
-        internal void DaneKlientaDodaj(KlientModel klient)
-        {
-
-            string query = $"INSERT INTO Klienci(Imie,Nazwisko,Pesel,Telefon,Adres, IsActive) VALUES ('{klient.Imie}','{klient.Nazwisko}','{klient.Pesel}','{klient.Telefon}', '{klient.Adres}', {Convert.ToInt32(klient.IsActive)});";
-            using (SqlConnection connection = new SqlConnection(_connString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    connection.Open();
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+                return model;
             }
         }
 
-        internal void DaneKlientaUpdate(KlientModel klient)
+        internal void DodajKlienta(KlientModel model)
         {
-            string query = $"update Klienci set Imie = '{klient.Imie}', Nazwisko = '{klient.Nazwisko}', Telefon = '{klient.Telefon}', Adres = '{klient.Adres}', IsActive = {Convert.ToInt32(klient.IsActive)} where Pesel = '{klient.Pesel}'";
-            using (SqlConnection connection = new SqlConnection(_connString))
+
+            using (EntityModel context = new EntityModel())
             {
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    connection.Open();
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
+                var klient = new Klienci();
+                klient.Imie = model.Imie;
+                klient.Nazwisko = model.Nazwisko;
+                klient.Pesel = model.Pesel;
+                klient.Telefon = model.Telefon;
+                klient.IsActive = model.IsActive;
+                klient.Adres = model.Adres;
+
+                context.Klienci.Add(klient);
+                context.SaveChanges();
+            }
+        }
+
+        internal void KlientUpdate(KlientModel model)
+        {
+            using (EntityModel context = new EntityModel())
+            {
+                var klient = context.Klienci.Where(oKlient => oKlient.Pesel == model.Pesel).FirstOrDefault();
+                klient.Imie = model.Imie;
+                klient.Nazwisko = model.Nazwisko;
+                klient.Pesel = model.Pesel;
+                klient.Telefon = model.Telefon;
+                klient.Adres = model.Adres;
+                klient.IsActive = model.IsActive;
+
+                context.SaveChanges();
             }
         }
 
         public List<ItemModel> FillComboKat()
         {
+
             List<ItemModel> list = new List<ItemModel>();
-            string query = "SELECT Id,Nazwa FROM Kategorie ";
+            string query = "SELECT Id,Nazwa FROM Kategorie ORDER BY Nazwa ";
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
@@ -98,9 +84,9 @@ namespace Metmar2.Connection
         public List<ItemModel> FillComboNazw(int idKat)
         {
             List<ItemModel> list = new List<ItemModel>();
-            string query = $"SELECT p.Id as Id,p.Nazwa as NazwaPrzedmiotu, k.Nazwa as NazwaKat ,IdKategorii,Kaucja,StawkaDzien,StawkaGodzinowa,Cena,IsPrice FROM Przedmioty p" +
+            string query = $"SELECT p.Id as Id,p.Nazwa as NazwaPrzedmiotu, k.Nazwa as NazwaKat ,IdKategorii,Kaucja,StawkaDzien,StawkaGodzinowa,Cena,IsPrice,Wartosc,IsSki FROM Przedmioty p" +
                 $" join Kategorie k on p.IdKategorii = k.Id" +
-                $" where IdKategorii = {idKat}";
+                $" where IdKategorii = {idKat} ORDER BY p.Nazwa";
             using (SqlConnection connection = new SqlConnection(_connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, connection))
@@ -118,6 +104,8 @@ namespace Metmar2.Connection
                             ItemModel.StawkaDzien = Convert.ToDecimal(dr["StawkaDzien"]);
                             ItemModel.StawkaGodzina = Convert.ToDecimal(dr["StawkaGodzinowa"]);
                             ItemModel.IsPrice = Convert.ToBoolean(dr["IsPrice"]);
+                            ItemModel.Wartosc = Convert.ToInt32(dr["Wartosc"]);
+                            ItemModel.IsSki = Convert.ToInt32(dr["IsSki"]);
                             list.Add(ItemModel);
                         }
                 }
@@ -125,32 +113,13 @@ namespace Metmar2.Connection
             return list;
         }
 
-        public KlientModel FillKlientByPesel(string pesel)
+        public Klienci FillKlientByPesel(string pesel)
         {
-            KlientModel klient = null;
-            string query = $"select Id, Imie, Nazwisko,Pesel, Telefon, Adres from Klienci where Pesel = '{pesel}';";
-            using (SqlConnection connection = new SqlConnection(_connString))
+            using (EntityModel context = new EntityModel())
             {
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    cmd.Connection.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            klient = new KlientModel();
-                            klient.Id = Convert.ToInt32(dr["Id"]);
-                            klient.Imie = Convert.ToString(dr["Imie"]);
-                            klient.Nazwisko = Convert.ToString(dr["Nazwisko"]);
-                            klient.Pesel = Convert.ToString(dr["Pesel"]);
-                            klient.Telefon = Convert.ToString(dr["Telefon"]);
-                            klient.Adres = Convert.ToString(dr["Adres"]);
-
-                        }
-                    }
-                }
+                var klient = context.Klienci.FirstOrDefault(oklient => oklient.Pesel == pesel);
+                return klient;
             }
-            return klient;
         }
 
         public int FakturaDodaj(BindingList<ItemModel> list, int idKlient)
@@ -185,56 +154,6 @@ namespace Metmar2.Connection
             }
             return NewIdFaktura;
         }
-
-        public void DaneKlientaDodaj(string imie, string nazwisko, string pesel, int telefon)
-        {
-            ItemModel model = new ItemModel();
-            string query = $"INSERT INTO Klienci(Imie,Nazwisko,Pesel,Telefon) VALUES ('{imie}','{nazwisko}','{pesel}',{telefon});";
-            using (SqlConnection connection = new SqlConnection(_connString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    connection.Open();
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-        }
-
-        public void DaneKlientaUsun(string pesel)
-        {
-            string query = $"delete from Cennik.dbo.Klienci where Pesel = '{pesel}'";
-            using (SqlConnection connection = new SqlConnection(_connString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    connection.Open();
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-        }
-
-        public void DaneKlientaUpdate(string imie, string nazwisko, string pesel, int telefon)
-        {
-            string query = $"update Klienci set Imie = '{imie}', Nazwisko = '{nazwisko}', Telefon = {telefon} where Pesel = '{pesel}'";
-            using (SqlConnection connection = new SqlConnection(_connString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    connection.Open();
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-        }
-
     }
 
 }

@@ -110,7 +110,7 @@
             // 
             this.btnSave.Location = new System.Drawing.Point(193, 342);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(75, 29);
             this.btnSave.TabIndex = 8;
             this.btnSave.Text = "Zapisz";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -121,7 +121,7 @@
             this.rtbAdres.Location = new System.Drawing.Point(111, 216);
             this.rtbAdres.Name = "rtbAdres";
             this.rtbAdres.Size = new System.Drawing.Size(157, 80);
-            this.rtbAdres.TabIndex = 9;
+            this.rtbAdres.TabIndex = 4;
             this.rtbAdres.Text = "";
             // 
             // label5
@@ -163,7 +163,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "FmKlientDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FmKlientDetails";
+            this.Text = "Dane Klienta";
             this.ResumeLayout(false);
             this.PerformLayout();
 

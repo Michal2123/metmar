@@ -43,9 +43,9 @@ namespace Metmar2
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (_klient.Id == 0)
-                _dal.DaneKlientaDodaj(_klient);
+                _dal.DodajKlienta(_klient);
             else
-                _dal.DaneKlientaUpdate(_klient);
+                _dal.KlientUpdate(_klient);
             this.Close();
         }
     }

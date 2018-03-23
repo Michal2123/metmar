@@ -35,10 +35,5 @@ namespace Metmar2
             FmKlientDetails fmKlientDetails = new FmKlientDetails();
             fmKlientDetails.ShowDialog();
         }
-
-        private void wyjścieToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
     }
 }
