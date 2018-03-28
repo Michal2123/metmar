@@ -22,11 +22,7 @@
         public string NazwaPrzedmiotu { get; set; }
         public int Wartosc { get; set; }
         public string StawkaUmowa { get; set; }
-
         public TypStawki TypStawki { get; set; }
-        public string NazwaKategori { get; set; }
-
-
         public decimal Kaucja { get; set; }
 
         public string DisplayProperty

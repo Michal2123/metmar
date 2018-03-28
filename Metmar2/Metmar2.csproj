@@ -120,7 +120,9 @@
     <Compile Include="BookmarkReplace\BookmarkService.cs" />
     <Compile Include="Connection\DAL.cs" />
     <Compile Include="Connection\EntityModel.cs" />
+    <Compile Include="Connection\Kategorie.cs" />
     <Compile Include="Connection\Klienci.cs" />
+    <Compile Include="Connection\Przedmioty.cs" />
     <Compile Include="FmKlient.cs">
       <SubType>Form</SubType>
     </Compile>

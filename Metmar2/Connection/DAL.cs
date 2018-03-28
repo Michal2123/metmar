@@ -42,7 +42,7 @@ namespace Metmar2.Connection
             }
         }
 
-        internal void KlientUpdate(KlientModel model)
+        internal void KlientUpdate(Klienci model)
         {
             using (EntityModel context = new EntityModel())
             {
@@ -58,27 +58,15 @@ namespace Metmar2.Connection
             }
         }
 
-        public List<ItemModel> FillComboKat()
+        public List<Kategorie> FillComboKat()
         {
-
-            List<ItemModel> list = new List<ItemModel>();
-            string query = "SELECT Id,Nazwa FROM Kategorie ORDER BY Nazwa ";
-            using (SqlConnection connection = new SqlConnection(_connString))
+            using (EntityModel context = new EntityModel())
             {
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    cmd.Connection.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                        while (dr.Read())
-                        {
-                            var ItemModel = new ItemModel();
-                            ItemModel.NazwaKategori = Convert.ToString(dr["Nazwa"]);
-                            ItemModel.Id = Convert.ToInt32(dr["Id"]);
-                            list.Add(ItemModel);
-                        }
-                }
+                var kategorie = (from okategorie in context.Kategorie
+                                 orderby okategorie.Nazwa
+                                 select okategorie).ToList();
+                return kategorie;
             }
-            return list;
         }
 
         public List<ItemModel> FillComboNazw(int idKat)
@@ -96,7 +84,6 @@ namespace Metmar2.Connection
                         while (dr.Read())
                         {
                             var ItemModel = new ItemModel();
-                            ItemModel.NazwaKategori = Convert.ToString(dr["NazwaKat"]);
                             ItemModel.NazwaPrzedmiotu = Convert.ToString(dr["NazwaPrzedmiotu"]);
                             ItemModel.Id = Convert.ToInt32(dr["Id"]);
                             ItemModel.Kaucja = Convert.ToDecimal(dr["Kaucja"]);

@@ -12,14 +12,13 @@ namespace Metmar2
     {
         private BindingList<ItemModel> _list = new BindingList<ItemModel>();
         private ItemModel _itemModel = new ItemModel();
-        private KlientModel _klientModel = new KlientModel();
         private DAL _dal = new DAL();
-        private Klienci _klienci = new Klienci();
+        private Klienci _klient = new Klienci();
 
         private void fillComboKat()
         {
             comboBoxKat.DataSource = _dal.FillComboKat();
-            comboBoxKat.DisplayMember = "NazwaKategori";
+            comboBoxKat.DisplayMember = "Nazwa";
             comboBoxKat.ValueMember = "Id";
         }
 
@@ -37,10 +36,10 @@ namespace Metmar2
             textBoxPesel.DataBindings.Clear();
             lbTelefon.DataBindings.Clear();
 
-            lbImie.DataBindings.Add("Text", _klienci, "Imie");
-            lbNazwisko.DataBindings.Add("Text", _klienci, "Nazwisko");
-            textBoxPesel.DataBindings.Add("Text", _klienci, "Pesel");
-            lbTelefon.DataBindings.Add("Text", _klienci, "Telefon");
+            lbImie.DataBindings.Add("Text", _klient, "Imie");
+            lbNazwisko.DataBindings.Add("Text", _klient, "Nazwisko");
+            textBoxPesel.DataBindings.Add("Text", _klient, "Pesel");
+            lbTelefon.DataBindings.Add("Text", _klient, "Telefon");
         }
 
         public void refreshBindings()
@@ -91,7 +90,7 @@ namespace Metmar2
 
         private void comboBoxKat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedObject = comboBoxKat.SelectedItem as ItemModel;
+            var selectedObject = comboBoxKat.SelectedItem as Kategorie;
             fillComboNazwa(selectedObject.Id);
             refreshBindings();
         }
@@ -106,7 +105,7 @@ namespace Metmar2
 
         private void buttonDodaj_Click(object sender, EventArgs e)
         {
-            var selectedObject = comboBoxKat.SelectedItem as ItemModel;
+            var selectedObject = comboBoxKat.SelectedItem as Kategorie;
 
             if (_list.Contains(_itemModel))
             {
@@ -179,28 +178,28 @@ namespace Metmar2
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
                 txtBoxSuma.Text = Convert.ToString(_list.Sum(x => x.SumaZaPrzedmiot) + " PLN");
             }
-            var selectedObject = comboBoxKat.SelectedItem as ItemModel;
+            var selectedObject = comboBoxKat.SelectedItem as Kategorie;
             fillComboNazwa(selectedObject.Id);
             refreshBindings();
         }
 
         private void buttonGeneruj_Click(object sender, EventArgs e)
         {
-            if (_list.Count == 0 || _klientModel == null)
+            if (_list.Count == 0 || _klient == null)
             {
                 MessageBox.Show("Musisz najpierw wskazać klienta i dodać przedmioty do listy");
                 return;
             }
             BookmarkService bookmark = new BookmarkService();
-            var nrFaktury = _dal.FakturaDodaj(_list, _klientModel.Id);
-            bookmark.GenerateDoc(_klientModel, _list);
+            var nrFaktury = _dal.FakturaDodaj(_list, _klient.Id);
+            bookmark.GenerateDoc(_klient, _list);
 
         }
 
         private void textBoxPesel_Leave(object sender, EventArgs e)
         {
-            _klienci = _dal.FillKlientByPesel(textBoxPesel.Text);
-            if (_klienci == null)
+            _klient = _dal.FillKlientByPesel(textBoxPesel.Text);
+            if (_klient == null)
             {
                 MessageBox.Show("Nie znaleziono klienta o podanym peselu");
                 return;

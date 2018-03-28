@@ -24,7 +24,7 @@ namespace Metmar2
 
         private void dgvKlienci_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var selected = ((DataGridView)sender).SelectedRows[0].DataBoundItem as KlientModel;
+            var selected = ((DataGridView)sender).SelectedRows[0].DataBoundItem as Klienci;
             FmKlientDetails fmKlientDetails = new FmKlientDetails(selected);
             fmKlientDetails.ShowDialog();
             dgvKlienci.DataSource = _dal.GetList();
@@ -34,6 +34,7 @@ namespace Metmar2
         {
             FmKlientDetails fmKlientDetails = new FmKlientDetails();
             fmKlientDetails.ShowDialog();
+            dgvKlienci.DataSource = _dal.GetList();
         }
     }
 }

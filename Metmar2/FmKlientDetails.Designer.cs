@@ -142,6 +142,7 @@
             this.chbIsActive.TabIndex = 11;
             this.chbIsActive.Text = "Aktywny";
             this.chbIsActive.UseVisualStyleBackColor = true;
+            this.chbIsActive.CheckedChanged += new System.EventHandler(this.chbIsActive_CheckedChanged);
             // 
             // FmKlientDetails
             // 

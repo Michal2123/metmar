@@ -8,6 +8,7 @@ using System.Data;
 using System.ComponentModel;
 using Metmar2.Models;
 using System.Diagnostics;
+using Metmar2.Connection;
 
 namespace Metmar2.BookmarkReplace
 {
@@ -15,7 +16,7 @@ namespace Metmar2.BookmarkReplace
     public class BookmarkService
     {
 
-        public void GenerateDoc(KlientModel klient, BindingList<ItemModel> list)
+        public void GenerateDoc(Klienci klient, BindingList<ItemModel> list)
         {
             int lp = 1;
             string bmName;
